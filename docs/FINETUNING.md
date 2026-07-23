@@ -20,6 +20,9 @@ Veri script'i, asistan cevabı tam olarak modelin üretmeyi öğrenmesi gereken
 `RouteDecision` JSON'u olan, chat formatında JSONL üretir:
 
 ```bash
+# `--source bitext|mix` Hugging Face'ten veri indirir, bunun icin gerekli:
+pip install datasets
+
 # Dengeli train + sızıntısız (leak-free) eval seti üret:
 python scripts/prepare_dataset.py --source mix --count 2000 --balance \
     --per-route 300 --eval-split 0.15 --output data/generated/router.jsonl
