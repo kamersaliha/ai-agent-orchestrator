@@ -1,0 +1,62 @@
+{
+  "static_faqs": [
+    {
+      "intent": "launch_date",
+      "question": "When does the product launch?",
+      "answer": "Our Voice AI platform officially launches on September 1, 2026. Early-access customers on the Enterprise plan get access starting August 15, 2026."
+    },
+    {
+      "intent": "pricing",
+      "question": "How much does it cost?",
+      "answer": "We offer three plans: Starter at $49/month, Pro at $199/month, and Enterprise with custom pricing. All plans include a 14-day free trial."
+    },
+    {
+      "intent": "business_hours",
+      "question": "What are your support hours?",
+      "answer": "Live support is available Monday to Friday, 9:00 AM to 6:00 PM (CET). This AI assistant is available 24/7."
+    },
+    {
+      "intent": "refund_policy",
+      "question": "What is your refund policy?",
+      "answer": "We offer a full refund within 30 days of purchase, no questions asked. Refunds are processed back to the original payment method within 5-7 business days."
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-password-reset",
+      "title": "Resetting your password",
+      "text": "To reset your password, go to the login page and click 'Forgot password'. Enter your account email and we'll send a secure reset link that is valid for 30 minutes. If it doesn't arrive, check your spam folder or contact support.",
+      "source": "help-center/account"
+    },
+    {
+      "id": "doc-api-integration",
+      "title": "Integrating with the REST API",
+      "text": "Authenticate every API request with a Bearer token from Settings > API Keys. The base URL is https://api.example.com/v1. Endpoints are rate-limited to 100 requests per minute on the Pro plan and 1000 on Enterprise.",
+      "source": "docs/api"
+    },
+    {
+      "id": "doc-voice-latency",
+      "title": "Reducing Voice AI latency",
+      "text": "For low-latency voice calls, enable streaming responses and deploy in the region closest to your callers. Typical end-to-end latency is under 800ms when streaming is enabled and the model is warm.",
+      "source": "docs/voice-ai"
+    },
+    {
+      "id": "doc-billing",
+      "title": "Managing billing and invoices",
+      "text": "You can view and download invoices under Settings > Billing. To upgrade or downgrade your plan, use the 'Change plan' button; changes are prorated and applied immediately. Update your payment method anytime under Billing > Payment.",
+      "source": "help-center/billing"
+    },
+    {
+      "id": "doc-data-privacy",
+      "title": "Data privacy and GDPR",
+      "text": "We are GDPR compliant. You can export all of your account data from Settings > Privacy > Export, or request account deletion which permanently removes your data within 30 days. Call recordings are encrypted at rest with AES-256.",
+      "source": "legal/privacy"
+    },
+    {
+      "id": "doc-webhooks",
+      "title": "Configuring webhooks",
+      "text": "Webhooks let you receive real-time events. Add an endpoint under Settings > Webhooks and select the events to subscribe to. Each delivery is signed with an HMAC-SHA256 signature so you can verify authenticity; retries happen for up to 24 hours on failure.",
+      "source": "docs/webhooks"
+    }
+  ]
+}
