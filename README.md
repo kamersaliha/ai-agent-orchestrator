@@ -18,13 +18,13 @@ Runs offline by default: no API key, no network, no GPU needed.
 
 **In short**
 
-- 🔀 Embeddings route first, the LLM runs only when they aren't sure (~45% of traffic never hits a model)
-- 🛣️ Four paths: static FAQ · chitchat · RAG over Qdrant · safe fallback
-- 📡 Token-by-token SSE streaming, ready to feed a TTS layer
-- 🔌 Swap mock → Claude → your own fine-tuned local model with one env var
-- 🐳 Dockerized with a real Qdrant, 17 offline tests
+- Embeddings route first, the LLM runs only when they aren't sure (~45% of traffic never hits a model)
+- Four paths: static FAQ · chitchat · RAG over Qdrant · safe fallback
+- Token-by-token SSE streaming, ready to feed a TTS layer
+- Swap mock → Claude → your own fine-tuned local model with one env var
+- Dockerized with a real Qdrant, 17 offline tests
 
-## 🧭 How it works
+## How it works
 
 ```mermaid
 flowchart TD
@@ -78,7 +78,7 @@ sequenceDiagram
 | rag | Questions answerable from docs | Qdrant retrieval, then grounded LLM answer |
 | fallback | Out of scope or unsafe | Fixed, safe message |
 
-## 📊 Measured results
+## Measured results
 
 On the bundled corpus (97 unique messages from `scripts/prepare_dataset.py`):
 
@@ -92,7 +92,7 @@ The threshold behind this is calibrated for the bundled offline embedder. See
 [`app/core/config.py`](app/core/config.py). A test in
 [`tests/test_router.py`](tests/test_router.py) keeps it from drifting.
 
-## ⚡ Quickstart
+## Quickstart
 
 ```bash
 python -m venv .venv && source .venv/Scripts/activate   # Windows Git Bash
@@ -125,7 +125,7 @@ event carries the routing decision and latency for analytics.
 
 Other endpoints: `GET /health`, `GET /ready`, `GET /docs`.
 
-## 🐳 Docker
+## Docker
 
 Starts the app and a real Qdrant server. No local Python needed.
 
@@ -139,7 +139,7 @@ The app connects to Qdrant at `http://qdrant:6333` on the compose network and wa
 for it on startup. Vectors persist in a named volume. To use a local model, run
 Ollama on the host and uncomment the `APP_LOCAL_*` block in `docker-compose.yml`.
 
-## 🎯 Fine-tuning the router
+## Fine-tuning the router
 
 Routing is a narrow, repetitive task, so a small local model can do it instead of a
 paid API call.
@@ -170,7 +170,7 @@ mapped onto the four routes here. Synthetic templates cover the rest.
 Providers sit behind one `LLMProvider` interface, so switching between mock, Claude
 and a local fine-tuned model is a config change.
 
-## ⚙️ Configuration
+## Configuration
 
 Copy `.env.example` to `.env`. All variables use the `APP_` prefix.
 
@@ -184,7 +184,7 @@ Copy `.env.example` to `.env`. All variables use the `APP_` prefix.
 | `APP_RAG_TOP_K` / `APP_RAG_MIN_SCORE` | `3` / `0.18` | Retrieval depth and relevance floor |
 | `APP_STREAM_TOKEN_DELAY_MS` | `12` | Per-token pacing for the mock generator |
 
-## 🧪 Tests and linting
+## Tests and linting
 
 ```bash
 pytest              # 17 tests, offline: router calibration, all four routes, SSE endpoint
@@ -194,7 +194,7 @@ ruff format .       # format
 
 CI runs the test suite on every push and pull request.
 
-## 🧩 Notes on the design
+## Notes on the design
 
 - The cheap router runs first. The LLM only runs when it isn't confident. The
   threshold is the dial between cost and accuracy, and it was measured rather than
@@ -208,7 +208,7 @@ CI runs the test suite on every push and pull request.
 - Failures degrade instead of breaking: a classifier error or low confidence routes
   to the safe path, and a mid-stream error still emits the final metadata event.
 
-## 📁 Project structure
+## Project structure
 
 ```
 app/
@@ -226,12 +226,12 @@ tests/          router calibration, all four routes, HTTP/SSE
 Layering rule: `api → orchestrator → graph → services → schemas/core`. Lower layers
 never import higher ones.
 
-## ⚠️ Limitations
+## Limitations
 
 This is a demo project. The semantic router and embedder are lightweight offline
 stand-ins, so a real embedding model is needed for production use. There is no auth
 or rate limiting on `/chat`, and no conversation memory across turns.
 
-## 📄 License
+## License
 
 [MIT](LICENSE)
