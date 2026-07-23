@@ -184,11 +184,15 @@ Copy `.env.example` to `.env`. All variables use the `APP_` prefix.
 | `APP_RAG_TOP_K` / `APP_RAG_MIN_SCORE` | `3` / `0.18` | Retrieval depth and relevance floor |
 | `APP_STREAM_TOKEN_DELAY_MS` | `12` | Per-token pacing for the mock generator |
 
-## 🧪 Tests
+## 🧪 Tests and linting
 
 ```bash
-pytest    # 17 tests, offline: router calibration, all four routes, SSE endpoint
+pytest              # 17 tests, offline: router calibration, all four routes, SSE endpoint
+ruff check .        # lint (rules configured in pyproject.toml)
+ruff format .       # format
 ```
+
+CI runs the test suite on every push and pull request.
 
 ## 🧩 Notes on the design
 
